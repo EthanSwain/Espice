@@ -53,3 +53,20 @@ void Component::remove_node(int pos){
     }
 }
 
+void Component::remove_node_by_name(Node* node){
+    bool is_found = false; // is false if node not found
+    if(node == NULL){
+        cout<<"ERROR: The Node trying to be removed is NULL \n";
+    } else {
+        for(int i =0; i< num_terminals; i++){
+            if(Nodes[i] == node){
+                is_found = true;
+                Nodes[i] = NULL;
+            }
+        }
+        if(!is_found){
+            cout<<"ERROR: Node being deleted not found";
+        }
+    }
+};
+
