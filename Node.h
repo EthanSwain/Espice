@@ -9,6 +9,7 @@ class Node{
     private:
         string name;
         vector<Component*> components;
+        int num_components;
         float voltage_level;
     public:
         Node(string name ="new node");

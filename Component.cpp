@@ -8,7 +8,13 @@ Component::Component(int num_terminals, string name){
 }
 
 Component::~Component(){
-    //TODO figure out delete logic for node and component
+    for(int i =0; i < get_num_terminals(); i++){
+        Nodes[i]->remove_component(this); // removes current node from every node its connected to
+    }
+    set_num_terminals(0);
+    set_name("");
+    delete this;
+
 }
 
 void Component::set_num_terminals(int num){
