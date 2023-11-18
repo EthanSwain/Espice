@@ -43,6 +43,7 @@ Node* Component::get_node(int pos){
 void Component::add_node(Node* node,int pos){
     if(pos<= num_terminals){
         Nodes[pos] = node;
+        node->add_component(this);
     } else{
          cout<<"ERROR: position entered is higher than number of terminals \n";
     }

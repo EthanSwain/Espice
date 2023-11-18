@@ -17,6 +17,7 @@ class Node{
         void set_name(string name);
         void set_voltage(float volts);
         void add_component(Component *Component);
+        float get_volts() const {return voltage_level;}
         string get_name() const{return name;}
         Component* get_component(int pos);
         void remove_component(Component *Component);
