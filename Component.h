@@ -3,14 +3,15 @@
 #define COMPONENT_h
 #include <string>
 #include <vector>
-#include "Node.h"
+#pragma once
 using namespace std;
+class Node;
 class Component{
     private:
         int num_terminals; // number of terminals a component has
         string name; // name of component
         vector<Node*> Nodes;  //inplement when node class is created
-        void initalize_nodes(int num_terminals); //initalizes and empty vector of Nodes
+        void initialize_nodes(int num_terminals); //initalizes and empty vector of Nodes
     
     public:
         Component(int num_terminals =0, string name ="new component");

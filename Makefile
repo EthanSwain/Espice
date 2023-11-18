@@ -1,10 +1,14 @@
-
-
 CC = g++
-CFLAGS = -Wall -g
+CFLAGS = -std=c++11
+TARGET = ESPICE
+SOURCES = main.cpp Node.cpp Component.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
 
-main: main.o
-	$(CC) $(CFLAGS) -o main main.o
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS)
 
-main.o: main.cpp
-	$(CC) $(CFLAGS) -c main.cpp
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJECTS) $(TARGET)

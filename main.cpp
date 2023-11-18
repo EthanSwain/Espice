@@ -34,14 +34,14 @@ int main() {
     cout<<"start comp test \n";
     for(int i =0; i< 3; i++){
         for(int k = 0; k <2; k++){
-            cout<<comps[i]->get_name() +" is connected to " + comps[i]->get_node(k).get_name() + " with voltage " + comps[i]->get_node(k)->get_volts() + "\n";
+            cout<<comps[i]->get_name() <<" is connected to " << comps[i]->get_node(k)->get_name() << " with voltage " << comps[i]->get_node(k)->get_volts() << "\n";
         }
     }
 
     cout<<"start Node test \n";
     for(int i =0; i< 3; i++){
         for(int k = 0; k <2; k++){
-            cout<<Nodes[i]->get_name() +" is connected to " + Nodes[i]->get_component(k) +"\n";
+            cout<<Nodes[i]->get_name() <<" is connected to " << Nodes[i]->get_component(k)->get_name() <<"\n";
         }
     }
     
