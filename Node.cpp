@@ -5,6 +5,7 @@ Node::Node(string name){
     set_name(name);
     set_voltage(0);
     num_components = 0;
+    set_is_known(false);
 }
 
 Node::~Node(){
@@ -17,7 +18,7 @@ Node::~Node(){
 }
 
 void Node::set_name(string name){
-    this->name = name;  // Corrected line
+    this->name = name; 
 }
 
 void Node::set_voltage(float volts){
@@ -37,7 +38,9 @@ Component* Node::get_component(int pos){
         return components[pos];
     }
 }
-
+void Node::set_is_known(bool found){
+    this->is_known = found;
+}
 void Node::remove_component(Component *Component){
     bool is_found = false;
     for(int i = 0; i < num_components; i++){

@@ -12,10 +12,12 @@ class Component{
         string name; // name of component
         vector<Node*> Nodes;  //inplement when node class is created
         void initialize_nodes(int num_terminals); //initalizes and empty vector of Nodes
-    
+
     public:
-        Component(int num_terminals =0, string name ="new component");
+        string comp_type;
+        Component(int num_terminals =0, string name ="new component",string type = "Generic");
         ~Component();
+        void set_type(string type);
         void set_num_terminals(int num);
         void set_name(string name);
         int get_num_terminals()const {return num_terminals;}

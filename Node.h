@@ -11,7 +11,9 @@ class Node{
         vector<Component*> components;
         int num_components;
         float voltage_level;
+        bool is_known;
     public:
+        void set_is_known(bool found);
         Node(string name ="new node");
         ~Node();
         void set_name(string name);
@@ -19,6 +21,7 @@ class Node{
         void add_component(Component *Component);
         float get_volts() const {return voltage_level;}
         string get_name() const{return name;}
+        bool get_known() const{return is_known;}
         Component* get_component(int pos);
         void remove_component(Component *Component);
 

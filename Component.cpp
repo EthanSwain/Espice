@@ -3,10 +3,11 @@
 #include <iostream>
 #include <stdexcept>  // for std::out_of_range
 
-Component::Component(int num_terminals, string name) {
+Component::Component(int num_terminals, string name,string type) {
     set_name(name);
     set_num_terminals(num_terminals);
     initialize_nodes(num_terminals);
+    set_type(type);
 }
 
 Component::~Component() {
@@ -25,6 +26,10 @@ void Component::set_num_terminals(int num) {
 
 void Component::set_name(string name) {
     this->name = name;
+}
+
+void Component::set_type(string type){
+    this->comp_type = type;
 }
 
 void Component::initialize_nodes(int num_terminals) {
