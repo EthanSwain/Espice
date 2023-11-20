@@ -29,7 +29,7 @@ int main() {
     test_res->add_node(node_2,0);
     test_res->add_node(node_3,1);
     test_vss->add_node(node_3,0);
-    test_vss->add_node(node_3,1);
+    test_vss->add_node(node_1,1);
     
     cout<<"start comp test \n";
     for(int i =0; i< 3; i++){
