@@ -1,6 +1,6 @@
 //parent class for all components to be used in Espice
 #ifndef COMPONENT_H
-#define COMPONENT_h
+#define COMPONENT_H
 #include <string>
 #include <vector>
 #pragma once
