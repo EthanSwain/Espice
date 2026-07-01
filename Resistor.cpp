@@ -2,9 +2,11 @@
 #include "Node.h"
 #include <iostream>
 
-Resistor::Resistor(int num_terminals,string name,string type, float resistance) 
+Resistor::Resistor(int num_terminals,string name,string type, float resistance)
     : Component(num_terminals,name,type), resistance(resistance){
     set_current(0);
+    set_current_known(false);
+    set_voltage_drop(0);
 }
 
 Resistor::~Resistor(){

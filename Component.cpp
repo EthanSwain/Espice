@@ -58,7 +58,7 @@ void Component::add_node(Node* node, int pos) {
 void Component::remove_node(int pos) {
     if (pos < num_terminals) {
         if (Nodes[pos] != nullptr) {
-            delete Nodes[pos];
+            Nodes[pos]->remove_component(this); // detach only, node may still be shared by other components
             Nodes[pos] = nullptr;
         }
     } else {
