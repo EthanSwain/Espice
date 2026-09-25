@@ -16,7 +16,7 @@ class Component{
     public:
         string comp_type;
         Component(int num_terminals =0, string name ="new component",string type = "Generic");
-        ~Component();
+        virtual ~Component();
         void set_type(string type);
         void set_num_terminals(int num);
         void set_name(string name);

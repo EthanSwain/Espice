@@ -2,6 +2,9 @@
 #include <string>
 #include "Component.h"
 #include "Node.h"
+#include "Resistor.h"
+#include "DC_voltage.h"
+#include "Circuit.h"
 using namespace std;
 int main() {
     Component *test_comp = new Component(2,"test resist 1");
@@ -44,5 +47,41 @@ int main() {
             cout<<Nodes[i]->get_name() <<" is connected to " << Nodes[i]->get_component(k)->get_name() <<"\n";
         }
     }
-    
-}   
+
+    cout<<"\nstart Circuit solve test (voltage divider) \n";
+    // 10V source across node_a/ground, R1 from node_a to node_b, R2 from node_b to ground.
+    // Expected: node_a = 10V, node_b = 10 * R2/(R1+R2) = 10 * 2000/3000 = 6.6667V
+    Node *gnd = new Node("ground");
+    Node *node_a = new Node("node_a");
+    Node *node_b = new Node("node_b");
+
+    DC_voltage *v1 = new DC_voltage(2, "V1", "Voltage source", 10.0);
+    v1->add_node(node_a, 0); // +
+    v1->add_node(gnd, 1);    // -
+
+    Resistor *r1 = new Resistor(2, "R1", "Resistor", 1000.0);
+    r1->add_node(node_a, 0);
+    r1->add_node(node_b, 1);
+
+    Resistor *r2 = new Resistor(2, "R2", "Resistor", 2000.0);
+    r2->add_node(node_b, 0);
+    r2->add_node(gnd, 1);
+
+    Circuit circuit;
+    circuit.add_node(gnd);
+    circuit.add_node(node_a);
+    circuit.add_node(node_b);
+    circuit.add_component(v1);
+    circuit.add_component(r1);
+    circuit.add_component(r2);
+    circuit.set_ground(gnd);
+
+    if(circuit.solve()){
+        cout << "ground voltage: " << gnd->get_volts() << "\n";
+        cout << "node_a voltage: " << node_a->get_volts() << "\n";
+        cout << "node_b voltage: " << node_b->get_volts() << "\n";
+    } else {
+        cout << "circuit solve FAILED\n";
+    }
+
+}

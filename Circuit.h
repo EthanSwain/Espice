@@ -19,30 +19,40 @@ class Circuit{
         vector<Node*> nodes;
         vector<Component*> components;
         Node* ground;
-        map<Node*,int> node_index; // maps each non-ground node to its row/column in the system
+        map<Node*,int> node_index; // maps each non-ground node to its unknown-voltage row/column
+        map<Component*,int> vsource_index; // maps each DC_voltage to its branch-current row/column
 
         void assign_node_indices();
-        // TODO: walk `nodes`, skip `ground`, and give every other node a unique
-        // index in `node_index` (0..N-1) for use as a row/column in the system.
+        // walks `nodes`, skips `ground`, gives every other node a unique index
+        // (0..N-1) -- these are the unknown node-voltage rows/columns.
+
+        void assign_vsource_indices();
+        // walks `components`, finds every DC_voltage, gives each a unique index
+        // (0..M-1). These become extra unknown-branch-current rows/columns
+        // appended after the N node-voltage rows, per Modified Nodal Analysis
+        // (see note above) since an ideal voltage source has no conductance
+        // to stamp directly into a plain G-matrix.
 
         vector<vector<float>> build_conductance_matrix();
-        // TODO: build the N x N conductance (G) matrix. For each Resistor,
-        // "stamp" its conductance (1/resistance) into the rows/columns of the
-        // two nodes it's connected to (add on the diagonal entries, subtract
-        // on the off-diagonal entries; skip terminals connected to ground).
+        // builds the (N+M) x (N+M) MNA system matrix. Resistors stamp
+        // conductance (1/resistance) into the node-voltage rows/columns
+        // (add on the diagonal, subtract off-diagonal; skip terminals tied to
+        // ground). DC_voltage sources stamp +/-1 into the row/column pairing
+        // their branch-current unknown with each of their two node terminals.
 
         vector<float> build_current_vector();
-        // TODO: build the length-N right-hand-side vector. For each independent
-        // source (e.g. DC_voltage), stamp its contribution here -- see the MNA
-        // note above; a pure nodal G-matrix may not be enough on its own.
+        // builds the length-(N+M) right-hand-side vector. The node-voltage
+        // rows are 0 (no independent current sources exist yet); each
+        // DC_voltage's branch-current row holds its source voltage.
 
         vector<float> solve_linear_system(vector<vector<float>> A, vector<float> b);
-        // TODO: solve A*x = b for x (e.g. Gaussian elimination). Return an
-        // empty vector if the system is singular / can't be solved.
+        // solves A*x = b via Gaussian elimination with partial pivoting.
+        // Returns an empty vector if the system is singular.
 
         void apply_solution(const vector<float> &solution);
-        // TODO: write each solved voltage back onto its Node (Node::set_voltage)
-        // and mark it known (Node::set_is_known(true)).
+        // writes each solved node voltage back onto its Node (Node::set_voltage)
+        // and marks it known (Node::set_is_known(true)). Branch-current
+        // unknowns (the tail of `solution`) aren't stored anywhere yet.
 
     public:
         Circuit();
